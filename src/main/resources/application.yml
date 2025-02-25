@@ -16,6 +16,6 @@ spring:
 vulpes:
   github:
     advisory-database:
-      path: ./data/github/advisory-database
+      path: "${HOME}/Projects/github.com/github/advisory-database"
   opensearch:
     url: https://localhost:9200

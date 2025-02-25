@@ -36,8 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-### Ephemeral data for DB ###
-data/
-
 ### Env var files ###
 .*env
