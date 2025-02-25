@@ -9,17 +9,13 @@ spring:
   config:
     activate:
       on-profile: default
+    import: "file:./.env[.properties]"
   application:
     name: vulpes
-  datasource:
-    url: jdbc:postgresql://localhost:5432/vulpes
-    username: vulpes_db_user
-    password: vulpes_db_password
-  jpa:
-    open-in-view: off
-    show-sql: true
 
 vulpes:
   github:
     advisory-database:
       path: ./data/github/advisory-database
+  opensearch:
+    url: https://localhost:9200
