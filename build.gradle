@@ -21,6 +21,7 @@ dependencies {
 	// Baseline Spring Boot
 	implementation('org.springframework.boot:spring-boot-starter')
 	implementation('com.fasterxml.jackson.core:jackson-annotations')
+	implementation('com.fasterxml.jackson.core:jackson-databind')
 	implementation('jakarta.persistence:jakarta.persistence-api')
 
 	// To fetch CVEs from remote GitHub
