@@ -19,3 +19,4 @@ vulpes:
       path: "${HOME}/Projects/github.com/github/advisory-database"
   opensearch:
     url: https://localhost:9200
+  load-data-from-scratch: true
