@@ -62,7 +62,9 @@ services:
 
 volumes:
   opensearch-data1:
+    external: true
   opensearch-data2:
+    external: true
 
 networks:
   opensearch-net:
