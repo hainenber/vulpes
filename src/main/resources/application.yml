@@ -20,4 +20,4 @@ vulpes:
   opensearch:
     url: https://localhost:9200
     index: "github-security-advisory-database"
-  load-data-from-scratch: true
+  load-data-from-scratch: false
