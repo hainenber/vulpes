@@ -16,27 +16,32 @@ import org.opensearch.client.transport.OpenSearchTransport;
 import org.opensearch.client.transport.httpclient5.ApacheHttpClient5TransportBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 import javax.net.ssl.SSLContext;
 
+@Component
 public class OpensearchClientFactory {
     private static final Logger log = LoggerFactory.getLogger(OpensearchClientFactory.class);
-    private final String opensearchClusterUrl;
-    private String opensearchUsername;
-    private String opensearchPassword;
 
-    public OpensearchClientFactory(String opensearchClusterUrl, String inputOpensearchUsername, String inputOpensearchPassword) throws Exception {
-        if (inputOpensearchPassword == null || inputOpensearchUsername == null)  {
-            throw new Exception("OpenSearch cluster credentials are null");
-        }
-        this.opensearchClusterUrl = opensearchClusterUrl;
-        this.opensearchUsername = inputOpensearchUsername;
-        this.opensearchPassword = inputOpensearchPassword;
-    }
+    @Value("${vulpes.opensearch.url}")
+    private String opensearchClusterUrl;
+
+    @Autowired
+    private Environment environment;
 
     public OpenSearchClient getOpensearchClient() throws Exception {
         // Configure credentials for authentication.
         final HttpHost opensearchHost = HttpHost.create(opensearchClusterUrl);
+        String opensearchUsername = environment.getProperty("OPENSEARCH_ADMIN_USERNAME");
+        String opensearchPassword = environment.getProperty("OPENSEARCH_ADMIN_PASSWORD");
+
+        if (opensearchUsername == null || opensearchPassword == null)  {
+            throw new Exception("OpenSearch cluster credentials are null");
+        }
 
         // Remove single quotes intended for shell escape.
         opensearchUsername = opensearchUsername.replace("'", "");
