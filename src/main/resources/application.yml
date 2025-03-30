@@ -16,6 +16,7 @@ spring:
 vulpes:
   github:
     advisory-database:
+      fetch-interval: 5m
       path: "${HOME}/Projects/github.com/github/advisory-database"
   opensearch:
     url: https://localhost:9200
