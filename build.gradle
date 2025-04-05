@@ -30,7 +30,7 @@ dependencies {
 
 	// For loading CVEs into OpenSearch
 	implementation('org.opensearch.client:opensearch-java:2.8.1')
-	implementation('org.apache.httpcomponents.client5:httpclient5:5.2.1')
+	implementation('org.apache.httpcomponents.client5:httpclient5')
 }
 
 checkstyle {

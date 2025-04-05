@@ -1,4 +1,4 @@
-package io.hainenber.vulpes;
+package io.hainenber.vulpes.opensearch;
 
 import org.apache.hc.client5.http.auth.AuthScope;
 import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
@@ -83,7 +83,7 @@ public class OpensearchClientFactory {
             log.info("OpenSearch cluster connected successfully");
             return openSearchClient;
         } catch (Exception e) {
-            log.error("Error initializing OpenSearch cluster: {0}", e);
+            log.error("Error initializing OpenSearch cluster: {}", e.toString());
             throw e;
         }
     }
