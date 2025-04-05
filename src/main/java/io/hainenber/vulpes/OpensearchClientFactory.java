@@ -47,7 +47,7 @@ public class OpensearchClientFactory {
         opensearchUsername = opensearchUsername.replace("'", "");
         opensearchPassword = opensearchPassword.replace("'", "");
 
-        BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(new AuthScope(opensearchHost),
                 new UsernamePasswordCredentials(opensearchUsername, opensearchPassword.toCharArray()));
 
@@ -78,12 +78,12 @@ public class OpensearchClientFactory {
 
         // Get overall cluster info as a quick health check
         try {
-            OpenSearchClient openSearchClient = new OpenSearchClient(transport);
+            final OpenSearchClient openSearchClient = new OpenSearchClient(transport);
             openSearchClient.info();
             log.info("OpenSearch cluster connected successfully");
             return openSearchClient;
         } catch (Exception e) {
-            log.error("Error initializing OpenSearch cluster: {1}", e);
+            log.error("Error initializing OpenSearch cluster: {0}", e);
             throw e;
         }
     }
