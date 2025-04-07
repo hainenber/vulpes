@@ -1,5 +1,5 @@
 resource "opensearch_dashboard_object" "github-security-advisory-database" {
-  tenant_name = "admin"
+  tenant_name = local.default_tenant_name
   body        = <<EOF
   [
     {

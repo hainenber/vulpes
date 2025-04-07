@@ -7,6 +7,10 @@ terraform {
   }
 }
 
+locals {
+  default_tenant_name = "admin"
+}
+
 provider "opensearch" {
   url      = "https://0.0.0.0:9200"
   insecure = true
