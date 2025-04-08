@@ -4,7 +4,6 @@ resource "opensearch_dashboard_object" "github-security-advisory-database" {
   [
     {
       "_id": "index-pattern:github-security-advisory-database",
-      "_type": "doc",
       "_source": {
         "type": "index-pattern",
         "index-pattern": {

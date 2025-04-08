@@ -4,7 +4,6 @@ resource "opensearch_dashboard_object" "raw-ghsa-vuln-data" {
   [
         {
             "_id": "search:raw-ghsa-vuln-data",
-            "_type": "doc",
             "_source": {
                 "type": "search",
                 "search": {
@@ -35,7 +34,6 @@ resource "opensearch_dashboard_object" "unfixed-ghsa-reviewd-vuln-data" {
   [
         {
             "_id": "search:unfixed-ghsa-reviewed-vuln-data",
-            "_type": "doc",
             "_source": {
                 "type": "search",
                 "search": {
