@@ -35,6 +35,11 @@ services:
       - "5601" # Expose port 5601 for web access to OpenSearch Dashboards
     environment:
       OPENSEARCH_HOSTS: '["https://opensearch-node:9200"]' # Define the OpenSearch nodes that OpenSearch Dashboards will query
+      SERVER_SSL_ENABLED: true
+      SERVER_SSL_CERTIFICATE: /opt/certs/localhost.pem
+      SERVER_SSL_KEY: /opt/certs/localhost-key.pem
+    volumes:
+      - ./certs:/opt/certs
     networks:
       - opensearch-net
 

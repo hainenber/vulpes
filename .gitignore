@@ -43,3 +43,6 @@ out/
 **/.terraform*
 **/terraform.tfstate*
 **/*.credentials.tfvars
+
+### Self-signed SSL certs
+/certs
