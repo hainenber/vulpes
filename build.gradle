@@ -26,7 +26,7 @@ dependencies {
 	implementation('jakarta.persistence:jakarta.persistence-api')
 
 	// To fetch CVEs from remote GitHub
-	implementation('org.eclipse.jgit:org.eclipse.jgit:7.1.0.202411261347-r')
+	implementation('org.eclipse.jgit:org.eclipse.jgit:7.2.0.202503040940-r')
 
 	// For loading CVEs into OpenSearch
 	implementation('org.opensearch.client:opensearch-java:2.8.1')
