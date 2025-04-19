@@ -80,7 +80,7 @@ public class OpensearchClientFactory {
         try {
             final OpenSearchClient openSearchClient = new OpenSearchClient(transport);
             openSearchClient.info();
-            log.info("OpenSearch cluster connected successfully");
+            log.debug("OpenSearch cluster connected successfully");
             return openSearchClient;
         } catch (Exception e) {
             log.error("Error initializing OpenSearch cluster: {}", e.toString());
