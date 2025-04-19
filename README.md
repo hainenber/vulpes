@@ -1,5 +1,24 @@
 # Vulpes
 
-A generic security platorm, made of various OSS products.
-- [Opensearch](https://opensearch.org/)
-- [COMING SOON] [osquery](https://osquery.io/)
+My personal security platform, made of various OSS products.
+- [OpenSearch: An open-source, enterprise-grade search and observability suite that brings order to unstructured data at scale](https://opensearch.org/)
+- [TBD] [osquery/osquery: SQL powered operating system instrumentation, monitoring, and analytics.](https://osquery.io/)
+- [TBD] [apache/superset: An open-source modern data exploration and visualization platform](https://superset.apache.org/)
+
+## Prerequisites
+- Java 21+. We recommend [sdkman](https://sdkman.io/)
+    ```bash
+      curl -s "https://get.sdkman.io" | bash
+      exec zsh
+      sdk install 17
+    ```
+- Self-signed TLS/SSL certificate. We recommend using [mkcert](https://github.com/FiloSottile/mkcert) for domain `localhost`
+    ```bash
+      brew install mkcert
+      mkcert -install  # You'll be prompted for Sudo password 
+      mkcert -cert-file localhost.pem -key-file localhost-key.pem localhost
+    ```
+
+## Getting started
+- Run `docker-compose up -d` to provision OpenSearch server and the Dashboard component.
+- In another command tab, run `./gradlew run` to have Vulpes up and running.
