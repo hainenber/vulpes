@@ -11,6 +11,10 @@ services:
       - discovery.seed_hosts=opensearch-node # Nodes to look for when discovering the cluster
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
+      # Enable TLS for REST-layer traffic
+      - plugins.security.ssl.http.enabled=true
+      - plugins.security.ssl.http.pemkey_filepath=certs/localhost-key.pem
+      - plugins.security.ssl.http.pemcert_filepath=certs/localhost.pem
     ulimits:
       memlock:
         soft: -1 # Set memlock to unlimited (no soft or hard limit)
@@ -20,6 +24,7 @@ services:
         hard: 65536
     volumes:
       - opensearch-data:/usr/share/opensearch/data # Creates volume called opensearch-data1 and mounts it to the container
+      - ./certs:/usr/share/opensearch/config/certs
     ports:
       - "9200:9200" # REST API
       - "9600:9600" # Performance Analyzer

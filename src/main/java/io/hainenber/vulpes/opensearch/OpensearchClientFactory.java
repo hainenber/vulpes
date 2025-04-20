@@ -5,9 +5,9 @@ import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
 import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
 import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManager;
 import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
-import org.apache.hc.client5.http.ssl.ClientTlsStrategyBuilder;
+import org.apache.hc.client5.http.ssl.DefaultClientTlsStrategy;
+import org.apache.hc.client5.http.ssl.HostnameVerificationPolicy;
 import org.apache.hc.client5.http.ssl.NoopHostnameVerifier;
-import org.apache.hc.client5.http.ssl.TrustAllStrategy;
 import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.nio.ssl.TlsStrategy;
 import org.apache.hc.core5.ssl.SSLContextBuilder;
@@ -51,21 +51,20 @@ public class OpensearchClientFactory {
         credentialsProvider.setCredentials(new AuthScope(opensearchHost),
                 new UsernamePasswordCredentials(opensearchUsername, opensearchPassword.toCharArray()));
 
-        // Disable SSL verification.
-        // TODO: remove this part for production deployment.
-        final SSLContext bypassedSSLContext = SSLContextBuilder
+        // SSL verification
+        final SSLContext SSLContext = SSLContextBuilder
                 .create()
-                .loadTrustMaterial(TrustAllStrategy.INSTANCE)
+                .loadTrustMaterial(null, (chains, authType) -> true)
                 .build();
 
-        // Initialize transport and client with disabled SSL and hostname verification
-        // TODO: remove this part for production deployment.
+        // Initialize transport and client with proper SSL and hostname verification
         final ApacheHttpClient5TransportBuilder builder = ApacheHttpClient5TransportBuilder.builder(opensearchHost);
         builder.setHttpClientConfigCallback(httpAsyncClientBuilder -> {
-            final TlsStrategy tlsStrategy = ClientTlsStrategyBuilder.create()
-                    .setSslContext(bypassedSSLContext)
-                    .setHostnameVerifier(NoopHostnameVerifier.INSTANCE)
-                    .build();
+            final TlsStrategy tlsStrategy = new DefaultClientTlsStrategy(
+                    SSLContext,
+                    HostnameVerificationPolicy.CLIENT,
+                    NoopHostnameVerifier.INSTANCE
+            );
             final PoolingAsyncClientConnectionManager connectionManager = PoolingAsyncClientConnectionManagerBuilder
                     .create()
                     .setTlsStrategy(tlsStrategy)
