@@ -6,6 +6,10 @@ ENV TZ=Asia/Ho_Chi_Minh
 # Create directories for application's built artifact and config.
 RUN mkdir -p /opt/app /opt/app/config
 
+# Create non-root user to run the application with user privilege.
+RUN groupadd -r spring && useradd -r -g spring spring -m -s /bin/bash
+USER spring:spring
+
 # Copy app config for PROD env
 COPY build/resources/main/application-prod.yml /opt/app/config
 
