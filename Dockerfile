@@ -1,0 +1,19 @@
+FROM eclipse-temurin:21
+
+# Set the timezone environment variable.
+ENV TZ=Asia/Ho_Chi_Minh
+
+# Create directories for application's built artifact and config.
+RUN mkdir -p /opt/app /opt/app/config
+
+# Copy app config for PROD env
+COPY build/resources/main/application-prod.yml /opt/app/config
+
+# Copy app's built artifact for PROD env
+COPY build/libs/vulpes-0.0.1-SNAPSHOT.jar /opt/app
+
+# Set the working directory
+WORKDIR /opt/app
+
+# Run the application
+CMD ["java", "-jar", "/opt/app/vulpes-0.0.1-SNAPSHOT.jar"]

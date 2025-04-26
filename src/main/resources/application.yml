@@ -15,7 +15,7 @@ vulpes:
     advisory-database:
       fetch-interval: 5m
       path: "${HOME}/Projects/github.com/github/advisory-database"
-      last-commit-saved-filepath: ./build/resources/main/ghsa-last-commit.txt
+      last-commit-saved-filepath: ./ghsa-last-commit.txt
   opensearch:
     url: https://localhost:9200
     index: "github-security-advisory-database"

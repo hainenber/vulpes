@@ -1,0 +1,22 @@
+logging:
+  level:
+    org.springframework.boot.context.config: INFO
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+    import: "file:/opt/secrets/.env[.properties]"
+  application:
+    name: vulpes
+
+vulpes:
+  github:
+    advisory-database:
+      fetch-interval: 5m
+      path: /opt/data/github/advisory-database
+      last-commit-saved-filepath: /opt/data/ghsa-last-commit.txt
+  opensearch:
+    url: https://opensearch-dashboards:9200
+    index: "github-security-advisory-database"
+  load-data-from-scratch: false

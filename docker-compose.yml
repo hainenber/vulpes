@@ -1,4 +1,18 @@
 services:
+  vulpes:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vulpes
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    volumes:
+      - ../../github/advisory-database:/opt/data/github/advisory-database
+      - ./ghsa-last-commit.txt:/opt/data/ghsa-last-commit.txt
+      - ./.env:/opt/secrets/.env
+    networks:
+      - vulpes-net
+
   opensearch-node: # This is also the hostname of the container within the Docker network (i.e. https://opensearch-node1/)
     image: opensearchproject/opensearch:2.19.0
     container_name: opensearch-node
@@ -29,7 +43,7 @@ services:
       - "9200:9200" # REST API
       - "9600:9600" # Performance Analyzer
     networks:
-      - opensearch-net # All of the containers will join the same Docker bridge network
+      - vulpes-net # All of the containers will join the same Docker bridge network
 
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:2.19.0 # Make sure the version of opensearch-dashboards matches the version of opensearch installed on other nodes
@@ -46,12 +60,12 @@ services:
     volumes:
       - ./certs:/opt/certs
     networks:
-      - opensearch-net
+      - vulpes-net
 
 volumes:
   opensearch-data:
     external: true
 
 networks:
-  opensearch-net:
+  vulpes-net:
   
