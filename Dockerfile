@@ -1,4 +1,17 @@
-FROM eclipse-temurin:21
+###### Building stage
+FROM gradle:8.13.0-jdk21 AS build_stage
+
+# Add whole source code .
+ADD . /src
+
+# Select working directory.
+WORKDIR /src
+
+# Build out the application's JAR file(s).
+RUN ./gradlew jar
+
+###### Running stage
+FROM eclipse-temurin:21 AS running_stage
 
 # Set the timezone environment variable.
 ENV TZ=Asia/Ho_Chi_Minh
@@ -11,10 +24,10 @@ RUN groupadd -r spring && useradd -r -g spring spring -m -s /bin/bash
 USER spring:spring
 
 # Copy app config for PROD env
-COPY build/resources/main/application-prod.yml /opt/app/config
+COPY --from=build_stage /src/build/resources/main/application-prod.yml /opt/app/config
 
 # Copy app's built artifact for PROD env
-COPY build/libs/vulpes-0.0.1-SNAPSHOT.jar /opt/app
+COPY --from=build_stage /src/build/libs/vulpes-0.0.1-SNAPSHOT.jar /opt/app
 
 # Set the working directory
 WORKDIR /opt/app
