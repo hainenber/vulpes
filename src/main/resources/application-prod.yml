@@ -17,6 +17,6 @@ vulpes:
       path: /opt/data/github/advisory-database
       last-commit-saved-filepath: /opt/data/ghsa-last-commit.txt
   opensearch:
-    url: https://opensearch-dashboards:9200
+    url: https://opensearch-node:9200
     index: "github-security-advisory-database"
   load-data-from-scratch: false
