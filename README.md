@@ -15,10 +15,14 @@ My personal security platform, made of various OSS products.
 - Self-signed TLS/SSL certificate. We recommend using [mkcert](https://github.com/FiloSottile/mkcert) for domain `localhost`
     ```bash
       brew install mkcert
-      mkcert -install  # You'll be prompted for Sudo password 
+      mkcert -install  # You'll be prompted for superuser password 
       mkcert -cert-file localhost.pem -key-file localhost-key.pem localhost
     ```
+- [Terraform 1.11.4+](https://developer.hashicorp.com/terraform)
 
 ## Getting started
-- Run `docker-compose up -d` to provision OpenSearch server and the Dashboard component.
-- In another command tab, run `./gradlew run` to have Vulpes up and running.
+  1. Application
+      * Run `docker-compose up -d` to provision OpenSearch server and the Dashboard component.
+      * In another command tab, run `./gradlew run` to have Vulpes up and running.
+  2. Infrastructure
+      * Run `terraform apply -var-file opensearch.credentials.tfvars` in working directory `./infrastructure/opensearch`
