@@ -1,0 +1,25 @@
+[
+    {
+      "_id": "visualization:ghsa-vuln-by-review-status",
+      "_source": {
+        "type": "visualization",
+        "visualization": {
+          "title": "GHSA vulnerabilities by review status",
+          "visState": ${ visState },
+          "uiStateJSON": "{}",
+          "description": "",
+          "version": 1,
+          "kibanaSavedObjectMeta": {
+            "searchSourceJSON": ${ searchSourceJSON }
+          }
+        },
+        "references": [
+            {
+                "id": "github-security-advisory-database",
+                "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+                "type": "index-pattern"
+            }
+        ]
+      }
+    }
+]

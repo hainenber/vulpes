@@ -1,0 +1,27 @@
+[
+    {
+        "_id": "search:raw-ghsa-vuln-data",
+        "_source": {
+            "migrationVersion": {
+                "search": "7.9.3"
+            },
+            "type": "search",
+            "search": {
+                "columns": [
+                    "_source"
+                ],
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": ${ searchSourceJSON }
+                },
+                "title": "Raw GHSA vulnerabilities"
+            },
+            "references": [
+                {
+                    "id": "github-security-advisory-database",
+                    "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+                    "type": "index-pattern"
+                }
+            ]
+        }
+    }
+]

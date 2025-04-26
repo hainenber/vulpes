@@ -1,0 +1,38 @@
+{
+    "title": "GHSA vulnerabilities by CWE",
+    "type": "table",
+    "aggs": [
+        {
+            "id": "1",
+            "enabled": true,
+            "type": "count",
+            "params": {},
+            "schema": "metric"
+        },
+        {
+            "id": "2",
+            "enabled": true,
+            "type": "terms",
+            "params": {
+                "field": "database_specific.cwe_ids.keyword",
+                "orderBy": "1",
+                "order": "desc",
+                "size": 10,
+                "otherBucket": false,
+                "otherBucketLabel": "Other",
+                "missingBucket": false,
+                "missingBucketLabel": "Missing",
+                "customLabel": "GHSA vulnerabilities by CWE"
+            },
+            "schema": "bucket"
+        }
+    ],
+    "params": {
+        "perPage": 10,
+        "showPartialRows": false,
+        "showMetricsAtAllLevels": false,
+        "showTotal": false,
+        "totalFunc": "sum",
+        "percentageCol": ""
+    }
+}

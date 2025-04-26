@@ -1,0 +1,20 @@
+{
+    "query": {
+        "query": "",
+        "language": "kuery"
+    },
+    "highlightAll": true,
+    "version": true,
+    "aggs": {
+        "2": {
+            "date_histogram": {
+                "field": "published",
+                "calendar_interval": "1y",
+                "time_zone": "Asia/Saigon",
+                "min_doc_count": 1
+            }
+        }
+    },
+    "filter": [],
+    "indexRefName": "kibanaSavedObjectMeta.searchSourceJSON.index"
+}
