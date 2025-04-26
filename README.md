@@ -6,13 +6,13 @@ My personal security platform, made of various OSS products.
 - [TBD] [apache/superset: An open-source modern data exploration and visualization platform](https://superset.apache.org/)
 
 ## Prerequisites
-- Java 21+. We recommend [sdkman](https://sdkman.io/)
+- Java 21+. We recommend [sdkman](https://sdkman.io/).
     ```bash
       curl -s "https://get.sdkman.io" | bash
       exec zsh
       sdk install 17
     ```
-- Self-signed TLS/SSL certificate. We recommend using [mkcert](https://github.com/FiloSottile/mkcert) for domain `localhost`
+- Self-signed TLS/SSL certificate. We recommend using [mkcert](https://github.com/FiloSottile/mkcert) for domain `localhost`.
     ```bash
       brew install mkcert
       mkcert -install  # You'll be prompted for superuser password 
@@ -21,8 +21,11 @@ My personal security platform, made of various OSS products.
 - [Terraform 1.11.4+](https://developer.hashicorp.com/terraform)
 
 ## Getting started
-  1. Application
-      * Run `docker-compose up -d` to provision OpenSearch server and the Dashboard component.
-      * In another command tab, run `./gradlew run` to have Vulpes up and running.
+### Docker
+  1. Application and dependencies
+      * Run `docker-compose up -d --build` to provision OpenSearch server and the Dashboard component
+      * The application has been containerized and would be built by Docker Compose.
   2. Infrastructure
       * Run `terraform apply -var-file opensearch.credentials.tfvars` in working directory `./infrastructure/opensearch`
+### Kubernetes
+- TBD
