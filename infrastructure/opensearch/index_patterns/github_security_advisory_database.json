@@ -1,0 +1,12 @@
+[
+  {
+    "_id": "index-pattern:github-security-advisory-database",
+    "_source": {
+      "type": "index-pattern",
+      "index-pattern": {
+        "title": "github-security-advisory-database",
+        "timeFieldName": "published"
+      }
+    }
+  }
+]

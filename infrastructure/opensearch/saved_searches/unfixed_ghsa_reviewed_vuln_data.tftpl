@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "search:unfixed-ghsa-reviewed-vuln-data",
+    "_source": {
+      "type": "search",
+      "migrationVersion": {
+        "search": "7.9.3"
+      },
+      "search": {
+        "columns": [
+          "database_specific.severity",
+          "summary",
+          "affected.package.ecosystem",
+          "affected.package.name"
+        ],
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": ${ searchSourceJSON }
+        },
+        "title": "Unfixed GHSA-reviewed vulnerabilities"
+      },
+      "references": [
+        {
+          "id": "github-security-advisory-database",
+          "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+          "type": "index-pattern"
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,60 @@
+{
+    "title": "GHSA vulnerabilities by review status",
+    "type": "metric",
+    "aggs": [
+        {
+            "id": "1",
+            "enabled": true,
+            "type": "count",
+            "params": {
+                "customLabel": " "
+            },
+            "schema": "metric"
+        },
+        {
+            "id": "2",
+            "enabled": true,
+            "type": "terms",
+            "params": {
+                "field": "database_specific.github_reviewed",
+                "orderBy": "1",
+                "order": "desc",
+                "size": 5,
+                "otherBucket": true,
+                "otherBucketLabel": "Other",
+                "missingBucket": false,
+                "missingBucketLabel": "Missing",
+                "customLabel": "GitHub Reviewed"
+            },
+            "schema": "group"
+        }
+    ],
+    "params": {
+        "addTooltip": true,
+        "addLegend": false,
+        "type": "metric",
+        "metric": {
+            "percentageMode": false,
+            "useRanges": false,
+            "colorSchema": "Green to Red",
+            "metricColorMode": "None",
+            "colorsRange": [
+                {
+                    "from": 0,
+                    "to": 10000
+                }
+            ],
+            "labels": {
+                "show": true
+            },
+            "invertColors": false,
+            "style": {
+                "bgFill": "#000",
+                "bgColor": false,
+                "labelColor": false,
+                "subText": "",
+                "fontSize": 60
+            }
+        }
+    }
+}
