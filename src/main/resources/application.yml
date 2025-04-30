@@ -6,16 +6,27 @@ spring:
   config:
     activate:
       on-profile: default
-    import: "file:./.env[.properties]"
+    import:
+      - "file:./.env[.properties]"
+      - "file:./.db.env[.properties]"
   application:
     name: vulpes
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vulpes_db
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 vulpes:
   github:
     advisory-database:
       fetch-interval: 5m
       path: "${HOME}/Projects/github.com/github/advisory-database"
-      last-commit-saved-filepath: ./ghsa-last-commit.txt
   opensearch:
     url: https://localhost:9200
     index: "github-security-advisory-database"
