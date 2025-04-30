@@ -8,8 +8,11 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
     volumes:
       - ../../github/advisory-database:/opt/data/github/advisory-database
-      - ./ghsa-last-commit.txt:/opt/data/ghsa-last-commit.txt
       - ./.env:/opt/secrets/.env
+      - ./.db.env:/opt/secrets/.db.env
+    depends_on:
+      - opensearch-node
+      - postgresql
     networks:
       - vulpes-net
 
@@ -62,8 +65,25 @@ services:
     networks:
       - vulpes-net
 
+  postgresql:
+    image: postgres:17.4-bookworm
+    container_name: postgresql
+    env_file:
+      - .db.env
+    ports:
+      - "5432:5432"
+    environment:
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./scripts/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+    networks:
+      - vulpes-net
+
 volumes:
   opensearch-data:
+    external: true
+  postgres-data:
     external: true
 
 networks:

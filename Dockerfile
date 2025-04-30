@@ -8,7 +8,7 @@ ADD . /src
 WORKDIR /src
 
 # Build out the application's JAR file(s).
-RUN ./gradlew jar
+RUN ./gradlew build
 
 ###### Running stage
 FROM eclipse-temurin:21 AS running_stage
