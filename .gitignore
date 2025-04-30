@@ -1,4 +1,3 @@
-HELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -37,7 +36,7 @@ out/
 .vscode/
 
 ### Env var files ###
-**/.env
+**/*.env
 
 ### Terraform temporaries
 **/.terraform*
