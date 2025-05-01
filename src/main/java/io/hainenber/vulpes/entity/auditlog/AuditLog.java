@@ -1,5 +1,6 @@
 package io.hainenber.vulpes.entity.auditlog;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,15 +12,21 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Map;
 
 @Entity
 @Table(name = "audit_log")
-public class AuditLog {
+public class AuditLog implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty("id")
     private Long id;
+
+    // Default constructor for JPA entity construction at runtime.
+    // Source: https://www.baeldung.com/jpa-no-argument-constructor-entity-class#reasons-for-no-arg-constructor
+    public AuditLog() { }
 
     public AuditLog(String previousCommitId, String currentCommitId, Map<String, DiffEntry.ChangeType> changedStates) {
         this.previousCommitId = previousCommitId;
@@ -28,16 +35,20 @@ public class AuditLog {
     }
 
     @Column(name = "previous_commit_id", nullable = false, updatable = false)
-    private final String previousCommitId;
+    @JsonProperty("previous_commit_id")
+    private String previousCommitId;
 
     @Column(name = "current_commit_id")
-    private final String currentCommitId;
+    @JsonProperty("current_commit_id")
+    private String currentCommitId;
 
     @Column(name = "created_at")
     @CreationTimestamp
+    @JsonProperty("created_at")
     private Timestamp createdAt;
 
     @Column(name = "changed_states")
     @JdbcTypeCode(SqlTypes.JSON)
-    private final Map<String, DiffEntry.ChangeType> changedStates;
+    @JsonProperty("changed_states")
+    private Map<String, DiffEntry.ChangeType> changedStates;
 }
