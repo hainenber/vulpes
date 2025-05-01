@@ -1,0 +1,26 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # enable write permissions for pull request comments
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Lint YAML and JSOn files
+        uses: GrantBirki/json-yaml-validator@v3.3.0
+
+      - name: Lint Terraform files
+        run: terraform fmt -recursive -diff .
