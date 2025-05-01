@@ -6,6 +6,8 @@ services:
     container_name: vulpes
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - "8080:8080"
     volumes:
       - ../../github/advisory-database:/opt/data/github/advisory-database
       - ./secrets/.env:/opt/secrets/.env
@@ -43,7 +45,7 @@ services:
       - ./certs:/usr/share/opensearch/config/certs
     ports:
       - "9200:9200" # REST API
-      - "9600:9600" # Performance Analyzer
+      # - "9600:9600" # Performance Analyzer
     networks:
       - vulpes-net # All of the containers will join the same Docker bridge network
 
