@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'io.hainenber'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 
 java {
 	toolchain {
@@ -41,4 +41,10 @@ dependencies {
 
 checkstyle {
 	toolVersion = "10.16.0"
+}
+
+// Not build out plain JAR.
+jar {
+	enabled = false
+	archiveFileName = bootJar.archiveFileName
 }

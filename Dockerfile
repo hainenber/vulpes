@@ -27,10 +27,10 @@ USER spring:spring
 COPY --from=build_stage /src/build/resources/main/application-prod.yml /opt/app/config
 
 # Copy app's built artifact for PROD env
-COPY --from=build_stage /src/build/libs/vulpes-0.0.1-SNAPSHOT.jar /opt/app
+COPY --from=build_stage /src/build/libs/vulpes-0.0.1.jar /opt/app
 
 # Set the working directory
 WORKDIR /opt/app
 
 # Run the application
-CMD ["java", "-jar", "/opt/app/vulpes-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/opt/app/vulpes-0.0.1.jar"]
