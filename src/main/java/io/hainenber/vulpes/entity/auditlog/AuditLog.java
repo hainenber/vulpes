@@ -21,6 +21,7 @@ import java.util.Map;
 public class AuditLog implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty("id")
     private Long id;
 
     // Default constructor for JPA entity construction at runtime.
