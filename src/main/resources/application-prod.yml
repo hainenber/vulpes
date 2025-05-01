@@ -25,7 +25,7 @@ spring:
 vulpes:
   github:
     advisory-database:
-      fetch-interval: 5m
+      fetch-interval: 20m
       path: /opt/data/github/advisory-database
   opensearch:
     url: https://opensearch-node:9200
