@@ -15,7 +15,7 @@
     "@refinedev/antd": "^5.44.0",
     "antd": "^5.17.0",
     "@ant-design/icons": "^5.5.1",
-    "@uiw/react-md-editor": "^3.19.5",
+    "@uiw/react-md-editor": "^4.0.5",
     "@refinedev/react-router": "^1.0.0"
   },
   "devDependencies": {
