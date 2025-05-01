@@ -7,8 +7,8 @@ spring:
     activate:
       on-profile: default
     import:
-      - "file:./.env[.properties]"
-      - "file:./.db.env[.properties]"
+      - "file:./secrets/.env[.properties]"
+      - "file:./secrets/.db.env[.properties]"
   application:
     name: vulpes
   datasource:

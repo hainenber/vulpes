@@ -8,10 +8,9 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
     volumes:
       - ../../github/advisory-database:/opt/data/github/advisory-database
-      - ./.env:/opt/secrets/.env
-      - ./.db.env:/opt/secrets/.db.env
+      - ./secrets/.env:/opt/secrets/.env
+      - ./secrets/.db.env:/opt/secrets/.db.env
     depends_on:
-      - opensearch-node
       - postgresql
     networks:
       - vulpes-net
@@ -20,7 +19,7 @@ services:
     image: opensearchproject/opensearch:2.19.0
     container_name: opensearch-node
     env_file:
-      - .env
+      - ./secrets/.env
     environment:
       - cluster.name=opensearch-cluster # Name the cluster
       - node.name=opensearch-node # Name the node that will run in this container
@@ -69,7 +68,7 @@ services:
     image: postgres:17.4-bookworm
     container_name: postgresql
     env_file:
-      - .db.env
+      - ./secrets/.db.env
     ports:
       - "5432:5432"
     environment:
