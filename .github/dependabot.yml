@@ -11,7 +11,8 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "terraform" # See documentation for possible values
-    directory: "/infrastructure/**/*" # Location of package manifests
+    directories: 
+      - "/infrastructure/**/*" # Location of package manifests
     schedule:
       interval: "daily"
   - package-ecosystem: "npm"
