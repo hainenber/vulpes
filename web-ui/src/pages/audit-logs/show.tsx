@@ -16,16 +16,16 @@ export const ShowAuditLog = () => {
             <td>{i.id}</td>
             <td>
                 <a href={`https://github.com/github/advisory-database/commit/${i.previous_commit_id}`}>
-                    {i.previous_commit_id}
+                    {String(i.previous_commit_id).slice(0, 7)}
                 </a>
             </td>
             <td>
                 <a href={`https://github.com/github/advisory-database/commit/${i.current_commit_id}`}>
-                    {i.current_commit_id}
+                    {String(i.current_commit_id).slice(0, 7)}
                 </a>
             </td>
             <td>{new Date(i.created_at).toString()}</td>
-            <td>{Object.keys(i.changed_states).length === 0 ? 'No changes' : JSON.stringify(i.changed_states, null, 2)}</td>
+            <td>{Object.keys(i.changes).length === 0 ? 'No changes' : JSON.stringify(i.changed_states, null, 2)}</td>
         </tr>
     ));
 

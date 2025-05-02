@@ -14,6 +14,7 @@ import org.hibernate.type.SqlTypes;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -28,10 +29,10 @@ public class AuditLog implements Serializable {
     // Source: https://www.baeldung.com/jpa-no-argument-constructor-entity-class#reasons-for-no-arg-constructor
     public AuditLog() { }
 
-    public AuditLog(String previousCommitId, String currentCommitId, Map<String, DiffEntry.ChangeType> changedStates) {
+    public AuditLog(String previousCommitId, String currentCommitId, Map<DiffEntry.ChangeType, List<String>> changes) {
         this.previousCommitId = previousCommitId;
         this.currentCommitId = currentCommitId;
-        this.changedStates = changedStates;
+        this.changes = changes;
     }
 
     @Column(name = "previous_commit_id", nullable = false, updatable = false)
@@ -47,8 +48,8 @@ public class AuditLog implements Serializable {
     @JsonProperty("created_at")
     private Timestamp createdAt;
 
-    @Column(name = "changed_states")
+    @Column(name = "changes")
     @JdbcTypeCode(SqlTypes.JSON)
-    @JsonProperty("changed_states")
-    private Map<String, DiffEntry.ChangeType> changedStates;
+    @JsonProperty("changes")
+    private Map<DiffEntry.ChangeType, List<String>> changes;
 }
