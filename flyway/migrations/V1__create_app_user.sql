@@ -1,5 +1,13 @@
-CREATE USER vulpes_user;
+DO
+$do$
+BEGIN
+   IF EXISTS (
+      SELECT FROM pg_catalog.pg_roles
+      WHERE  rolname = 'vulpes_user') THEN
+        RAISE NOTICE 'Role "vulpes" already exists. Skipping.';
+    ELSE
+        CREATE USER vulpes_user LOGIN;
+    END IF;
+END
+$do$;
 
-GRANT ALL PRIVILEGES ON DATABASE vulpes_db TO vulpes_user;
-
-GRANT ALL ON SCHEMA public TO vulpes_user;

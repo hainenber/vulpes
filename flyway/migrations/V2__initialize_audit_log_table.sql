@@ -7,3 +7,7 @@ CREATE TABLE audit_log (
 );
 
 CREATE SEQUENCE IF NOT EXISTS audit_log_seq INCREMENT BY 50;
+
+GRANT ALL PRIVILEGES ON TABLE audit_log TO vulpes_user;
+
+GRANT ALL PRIVILEGES ON SEQUENCE audit_log_seq TO vulpes_user;
