@@ -43,11 +43,17 @@ dependencies {
 }
 
 checkstyle {
-	toolVersion = "10.16.0"
+	toolVersion = "10.23.1"
 }
 
 // Not build out plain JAR.
 jar {
 	enabled = false
 	archiveFileName = bootJar.archiveFileName
+}
+
+// Prevent potential conflict between transitive `commons-logging` module
+// and Spring Boot's pre-configured logger
+configurations.implementation {
+	exclude group: 'commons-logging', module: 'commons-logging'
 }
