@@ -1,9 +1,21 @@
 services:
-  vulpes:
+  vulpes-ui:
+    build:
+      context: ./web-ui
+      dockerfile: Dockerfile
+    container_name: vulpes-ui
+    image: vulpes-ui:0.0.1
+    ports:
+      - "3000:3000"
+    networks:
+      - vulpes-net
+
+  vulpes-server:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: vulpes
+    container_name: vulpes-server
+    image: vulpes-server:0.0.1
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     ports:

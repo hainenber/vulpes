@@ -3,18 +3,13 @@
 # https://github.com/refinedev/dockerfiles/blob/main/vite/Dockerfile.nginx
 FROM refinedev/node:22 AS base
 
-FROM base as deps
+FROM base AS deps
 
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
+COPY package.json package-lock.json* .npmrc* ./
 
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+RUN npm ci
 
-FROM base as builder
+FROM base AS builder
 
 ENV NODE_ENV production
 
@@ -24,7 +19,7 @@ COPY . .
 
 RUN npm run build
 
-FROM base as runner
+FROM base AS runner
 
 ENV NODE_ENV production
 
