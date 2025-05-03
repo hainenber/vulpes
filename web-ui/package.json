@@ -29,15 +29,17 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.0.0",
+    "prettier": "3.5.3",
     "typescript": "^5.4.2",
     "vite": "^6.3.4"
   },
   "scripts": {
     "dev": "refine dev",
-    "lint": "npx eslint . --fix",
     "build": "tsc && refine build",
     "start": "refine start",
-    "refine": "refine"
+    "refine": "refine",
+    "lint:check": "npx prettier . --check && npx eslint .",
+    "lint:fix": "npx prettier . --write && npx eslint . --fix"
   },
   "browserslist": {
     "production": [

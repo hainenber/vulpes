@@ -5,9 +5,9 @@ import { ShowAuditLog } from "./pages/audit-logs/show";
 import { JSX } from "react";
 
 export default function App(): JSX.Element {
-  return (
-    <Refine dataProvider={dataProvider}>
-      <ShowAuditLog/>
-    </Refine>
-  )
-};
+    return (
+        <Refine dataProvider={dataProvider}>
+            <ShowAuditLog />
+        </Refine>
+    );
+}
