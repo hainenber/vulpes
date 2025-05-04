@@ -1,34 +1,47 @@
-import { useList } from "@refinedev/core";
+import { useTable } from "@refinedev/core";
+import { formatRelative } from "date-fns";
+
+const GITHUB_ADVISORY_DATABASE_REMOTE_URL =
+    "https://github.com/github/advisory-database/commit";
 
 export const ShowAuditLog = () => {
-    const { data, isLoading } = useList({ resource: "audit-logs" });
+    const {
+        tableQuery: { data, isLoading },
+    } = useTable({
+        resource: "audit-logs",
+        pagination: { current: 1, pageSize: 10 },
+        sorters: { initial: [{ field: "createdAt", order: "desc" }] },
+    });
 
     if (isLoading) {
         return <div>Loading...</div>;
     }
 
-    if (!data?.data) {
+    // @ts-ignore
+    if (!data?.data?.content) {
         return <div>Error fetching audit logs</div>;
     }
 
-    const auditLogs = data.data.map((i) => (
+    // @ts-ignore
+    const auditLogs = data.data.content.map((i) => (
         <tr key={i.id}>
-            <td>{i.id}</td>
+            <td>
+                {formatRelative(new Date(i.created_at).valueOf(), new Date())}
+            </td>
             <td>
                 <a
-                    href={`https://github.com/github/advisory-database/commit/${i.previous_commit_id}`}
+                    href={`${GITHUB_ADVISORY_DATABASE_REMOTE_URL}/${i.previous_commit_id}`}
                 >
                     {String(i.previous_commit_id).slice(0, 7)}
                 </a>
             </td>
             <td>
                 <a
-                    href={`https://github.com/github/advisory-database/commit/${i.current_commit_id}`}
+                    href={`${GITHUB_ADVISORY_DATABASE_REMOTE_URL}/${i.current_commit_id}`}
                 >
                     {String(i.current_commit_id).slice(0, 7)}
                 </a>
             </td>
-            <td>{new Date(i.created_at).toString()}</td>
             <td>
                 {Object.keys(i.changes).length === 0
                     ? "No changes"
@@ -41,14 +54,15 @@ export const ShowAuditLog = () => {
         <div>
             <h1>Audit logs</h1>
             <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Previous commit ID</th>
-                    <th>Current commit ID</th>
-                    <th>Fetched on</th>
-                    <th>Changes</th>
-                </tr>
-                {auditLogs}
+                <thead>
+                    <tr>
+                        <th>Fetched on</th>
+                        <th>Previous commit ID</th>
+                        <th>Current commit ID</th>
+                        <th>Changes</th>
+                    </tr>
+                </thead>
+                <tbody>{auditLogs}</tbody>
             </table>
         </div>
     );
