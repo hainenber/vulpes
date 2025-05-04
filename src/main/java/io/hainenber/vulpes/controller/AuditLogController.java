@@ -28,7 +28,7 @@ public class AuditLogController {
             @RequestParam(defaultValue = "asc") String order
     ) {
         final Sort sort = Objects.equals(order, "asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        final Pageable pageable = PageRequest.of(page, size, sort);
+        final Pageable pageable = PageRequest.of(page - 1, size, sort);
         return auditLogRepository.findAll(pageable);
     }
 }
