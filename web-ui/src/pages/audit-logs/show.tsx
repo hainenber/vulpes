@@ -1,13 +1,33 @@
-import { useTable } from "@refinedev/core";
+import { useTable } from "@refinedev/antd";
 import { formatRelative } from "date-fns";
+import { FC } from "react";
+import { List, Table, Typography } from "antd";
 
 const GITHUB_ADVISORY_DATABASE_REMOTE_URL =
     "https://github.com/github/advisory-database/commit";
 
-export const ShowAuditLog = () => {
+interface IAuditLog {
+    id: number;
+    previous_commit_id: string;
+    current_commit_id: string;
+    created_at: string; // Date-like string
+    changes: Record<string, string[]>;
+}
+
+const renderChanges = (changes: Record<string, string[]>) =>
+    Object.entries(changes).map(([changeType, changeData]) => (
+        <List
+            header={<Typography.Text strong>{changeType}</Typography.Text>}
+            dataSource={changeData}
+            renderItem={(item) => <List.Item>{item}</List.Item>}
+        />
+    ));
+
+export const AuditLogTable: FC = () => {
     const {
         tableQuery: { data, isLoading },
-    } = useTable({
+        tableProps,
+    } = useTable<IAuditLog>({
         resource: "audit-logs",
         pagination: { current: 1, pageSize: 10 },
         sorters: { initial: [{ field: "createdAt", order: "desc" }] },
@@ -17,53 +37,53 @@ export const ShowAuditLog = () => {
         return <div>Loading...</div>;
     }
 
-    // @ts-ignore
-    if (!data?.data?.content) {
+    if (!data?.data) {
         return <div>Error fetching audit logs</div>;
     }
-
-    // @ts-ignore
-    const auditLogs = data.data.content.map((i) => (
-        <tr key={i.id}>
-            <td>
-                {formatRelative(new Date(i.created_at).valueOf(), new Date())}
-            </td>
-            <td>
-                <a
-                    href={`${GITHUB_ADVISORY_DATABASE_REMOTE_URL}/${i.previous_commit_id}`}
-                >
-                    {String(i.previous_commit_id).slice(0, 7)}
-                </a>
-            </td>
-            <td>
-                <a
-                    href={`${GITHUB_ADVISORY_DATABASE_REMOTE_URL}/${i.current_commit_id}`}
-                >
-                    {String(i.current_commit_id).slice(0, 7)}
-                </a>
-            </td>
-            <td>
-                {Object.keys(i.changes).length === 0
-                    ? "No changes"
-                    : JSON.stringify(i.changed_states, null, 2)}
-            </td>
-        </tr>
-    ));
 
     return (
         <div>
             <h1>Audit logs</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Fetched on</th>
-                        <th>Previous commit ID</th>
-                        <th>Current commit ID</th>
-                        <th>Changes</th>
-                    </tr>
-                </thead>
-                <tbody>{auditLogs}</tbody>
-            </table>
+            <Table {...tableProps} rowKey="id">
+                <Table.Column
+                    dataIndex="created_at"
+                    title="Fetched at"
+                    render={(fetchedTime) =>
+                        formatRelative(new Date(fetchedTime), new Date())
+                    }
+                />
+                <Table.Column
+                    dataIndex="previous_commit_id"
+                    title="Previous commit ID"
+                    render={(commit) => (
+                        <a
+                            href={`${GITHUB_ADVISORY_DATABASE_REMOTE_URL}/${commit}`}
+                        >
+                            {String(commit).slice(0, 7)}
+                        </a>
+                    )}
+                />
+                <Table.Column
+                    dataIndex="current_commit_id"
+                    title="Current commit ID"
+                    render={(commit) => (
+                        <a
+                            href={`${GITHUB_ADVISORY_DATABASE_REMOTE_URL}/${commit}`}
+                        >
+                            {String(commit).slice(0, 7)}
+                        </a>
+                    )}
+                />
+                <Table.Column
+                    dataIndex="changes"
+                    title="Changes"
+                    render={(changes) =>
+                        Object.keys(changes).length === 0
+                            ? "No changes"
+                            : renderChanges(changes)
+                    }
+                />
+            </Table>
         </div>
     );
 };

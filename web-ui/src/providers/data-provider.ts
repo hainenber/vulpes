@@ -36,7 +36,10 @@ export const dataProvider: DataProvider = {
         }
 
         const data = (await response.json()) ?? [];
-        return { data, total: data?.length };
+        return {
+            data: data?.content ?? [],
+            total: data?.page?.totalElement ?? data?.length,
+        };
     },
     create: () => {
         throw new Error("Not implemented");

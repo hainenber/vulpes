@@ -48,7 +48,7 @@ public class AuditLog implements Serializable {
     @JsonProperty("created_at")
     private Timestamp createdAt;
 
-    @Column(name = "changes")
+    @Column(name = "changes", columnDefinition = "jsonb")
     @JdbcTypeCode(SqlTypes.JSON)
     @JsonProperty("changes")
     private Map<DiffEntry.ChangeType, List<String>> changes;
