@@ -18,9 +18,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+  # Enable graceful shutdown
+  lifecycle:
+    timeout-per-shutdown-phase: "10s"
 
 vulpes:
   github:

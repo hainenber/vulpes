@@ -18,14 +18,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+  # Enable graceful shutdown
+  lifecycle:
+    timeout-per-shutdown-phase: "10s"
 
 vulpes:
   github:
     advisory-database:
-      fetch-interval: 20m
+      fetch-interval: 5m
       path: "${HOME}/Projects/github.com/github/advisory-database"
   opensearch:
     url: https://localhost:9200
