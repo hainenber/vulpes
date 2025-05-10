@@ -1,0 +1,16 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: local
+    hooks:
+      - id: eslint-frontend
+        name: eslint (frontend)
+        entry: bash -c 'cd web-ui && FILES=$(echo "$@" | sed "s|web-ui/||g") && npx run eslint --check $FILES'
+        language: system
+        pass_filenames: true
+        files: ^web-ui/.*\.(ts|tsx)$
