@@ -32,4 +32,6 @@ vulpes:
     index: "github-security-advisory-database"
   web-ui:
     url: http://localhost:3000
-  load-data-from-scratch: false
+  load-data-from-scratch:
+    opensearch: false
+    postgresql: false
