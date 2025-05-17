@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+	// **** Application ****
 	// Baseline Spring Boot.
 	implementation('org.springframework.boot:spring-boot-starter:3.4.5')
 	implementation('com.fasterxml.jackson.core:jackson-annotations:2.19.0')
@@ -40,6 +41,12 @@ dependencies {
 	implementation('org.opensearch.client:opensearch-java:2.23.0')
 	implementation('org.apache.httpcomponents.client5:httpclient5:5.4.4')
 	implementation('org.apache.httpcomponents.core5:httpcore5-h2:5.3.4')
+
+	// **** Testing ****
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
+	testImplementation('org.springframework.boot:spring-boot-starter-test:3.4.5')
+	testImplementation('org.opensearch:opensearch-testcontainers:2.1.3')
+	testImplementation('org.testcontainers:junit-jupiter')
 }
 
 checkstyle {
@@ -56,4 +63,9 @@ jar {
 // and Spring Boot's pre-configured logger
 configurations.implementation {
 	exclude group: 'commons-logging', module: 'commons-logging'
+}
+
+// Fixes null injected beans when running for integration tests.
+test {
+	useJUnitPlatform()
 }
