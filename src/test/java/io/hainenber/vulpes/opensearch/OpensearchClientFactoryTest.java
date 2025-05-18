@@ -18,11 +18,12 @@ import org.testcontainers.utility.DockerImageName;
 
 @TestComponent
 @SpringBootTest(classes = OpensearchClientFactory.class)
-class OpensearchClientFactoryTest {
+public class OpensearchClientFactoryTest {
     @Autowired
-    OpensearchClientFactory opensearchClientFactory;
+    private OpensearchClientFactory opensearchClientFactory;
 
-    static OpensearchContainer<?> opensearchContainer = new OpensearchContainer<>(DockerImageName.parse("opensearchproject/opensearch:2.11.0")).withSecurityEnabled();
+    private static final OpensearchContainer<?> opensearchContainer = new OpensearchContainer<>(
+            DockerImageName.parse("opensearchproject/opensearch:2.11.0")).withSecurityEnabled();
 
     @BeforeAll
     static void setup() {
@@ -46,7 +47,7 @@ class OpensearchClientFactoryTest {
         assertTrue(opensearchContainer.isRunning());
         assertNotNull(opensearchClientFactory);
         assertDoesNotThrow(() -> {
-            OpenSearchClient client = opensearchClientFactory.getOpensearchClient();
+            final OpenSearchClient client = opensearchClientFactory.getOpensearchClient();
             assertNotNull(client);
         });
     }
