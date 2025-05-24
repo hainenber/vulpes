@@ -12,11 +12,13 @@ import org.opensearch.testcontainers.OpensearchContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestComponent;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.utility.DockerImageName;
 
 @TestComponent
+@ActiveProfiles("test")
 @SpringBootTest(classes = OpensearchClientFactory.class)
 public class OpensearchClientFactoryTest {
     @Autowired
