@@ -4,7 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.AfterAll;
+import io.hainenber.vulpes.testcontainers.OpensearchReusableContainer;
+import org.junit.ClassRule;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.opensearch.client.opensearch.OpenSearchClient;
@@ -15,7 +16,6 @@ import org.springframework.boot.test.context.TestComponent;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.utility.DockerImageName;
 
 @TestComponent
 @ActiveProfiles("test")
@@ -24,19 +24,12 @@ public class OpensearchClientFactoryTest {
     @Autowired
     private OpensearchClientFactory opensearchClientFactory;
 
-    private static final OpensearchContainer<?> opensearchContainer = new OpensearchContainer<>(
-            DockerImageName.parse("opensearchproject/opensearch:2.11.0")).withSecurityEnabled();
+    @ClassRule
+    public static OpensearchContainer<OpensearchReusableContainer> opensearchContainer = OpensearchReusableContainer.getInstance();
 
     @BeforeAll
-    static void setup() {
-        System.setProperty("OPENSEARCH_ADMIN_USERNAME", opensearchContainer.getUsername());
-        System.setProperty("OPENSEARCH_ADMIN_PASSWORD", opensearchContainer.getPassword());
+    public static void beforeAll() {
         opensearchContainer.start();
-    }
-
-    @AfterAll
-    static void tearDown() {
-        opensearchContainer.stop();
     }
 
     @DynamicPropertySource
