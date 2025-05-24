@@ -25,7 +25,7 @@ vulpes:
   github:
     advisory-database:
       fetch-interval: 5m
-      path: "${HOME}/Projects/github.com/github/advisory-database"
+      path: "/tmp/advisory-database"
   opensearch:
     url: https://localhost:9200
     index: "github-security-advisory-database"
