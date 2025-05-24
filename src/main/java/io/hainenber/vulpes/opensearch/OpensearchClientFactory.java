@@ -12,6 +12,12 @@ import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.nio.ssl.TlsStrategy;
 import org.apache.hc.core5.ssl.SSLContextBuilder;
 import org.opensearch.client.opensearch.OpenSearchClient;
+import org.opensearch.client.opensearch._types.OpenSearchException;
+import org.opensearch.client.opensearch._types.mapping.DateProperty;
+import org.opensearch.client.opensearch._types.mapping.Property;
+import org.opensearch.client.opensearch._types.mapping.TypeMapping;
+import org.opensearch.client.opensearch.indices.CreateIndexRequest;
+import org.opensearch.client.opensearch.indices.GetIndexRequest;
 import org.opensearch.client.transport.OpenSearchTransport;
 import org.opensearch.client.transport.httpclient5.ApacheHttpClient5TransportBuilder;
 import org.slf4j.Logger;
@@ -22,6 +28,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.SSLContext;
+import java.util.Objects;
 
 @Component
 public class OpensearchClientFactory {
@@ -32,6 +39,39 @@ public class OpensearchClientFactory {
 
     @Autowired
     private Environment environment;
+
+    public void createIndex(String indexName) throws Exception {
+        final OpenSearchClient openSearchClient = getOpensearchClient();
+        final GetIndexRequest getIndexRequest = new GetIndexRequest.Builder()
+                .index(indexName)
+                .build();
+        try {
+            openSearchClient.indices().get(getIndexRequest);
+        } catch (OpenSearchException getIndexException) {
+            if (Objects.equals(getIndexException.error().type(), "index_not_found_exception")) {
+                log.info("Index {} not yet created in OpenSearch cluster, creating one", indexName);
+                // Have to do explicit mapping to `date` type for "modified", "published" and "withdrawn".
+                final TypeMapping explicitDateMapping = new TypeMapping.Builder()
+                        .properties("modified", new Property.Builder().date(
+                                new DateProperty.Builder().build()).build())
+                        .properties("published", new Property.Builder().date(
+                                new DateProperty.Builder().build()).build())
+                        .properties("withdrawn", new Property.Builder().date(
+                                new DateProperty.Builder().build()).build())
+                        .build();
+                final CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder()
+                        .index(indexName)
+                        .mappings(explicitDateMapping)
+                        .build();
+                openSearchClient.indices().create(createIndexRequest);
+                log.info("Index {} created", indexName);
+            } else {
+                throw getIndexException;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public OpenSearchClient getOpensearchClient() throws Exception {
         // Configure credentials for authentication.

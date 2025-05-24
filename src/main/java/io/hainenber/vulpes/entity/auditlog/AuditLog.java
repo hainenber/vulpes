@@ -52,4 +52,16 @@ public class AuditLog implements Serializable {
     @JdbcTypeCode(SqlTypes.JSON)
     @JsonProperty("changes")
     private Map<DiffEntry.ChangeType, List<String>> changes;
+
+    public String getCurrentCommitId() {
+        return currentCommitId;
+    }
+
+    public String getPreviousCommitId() {
+        return previousCommitId;
+    }
+
+    public Map<DiffEntry.ChangeType, List<String>> getChanges() {
+        return changes;
+    }
 }
