@@ -5,9 +5,7 @@ logging:
 spring:
   config:
     activate:
-      on-profile: default
-    import:
-      - "file:./secrets/.test.env[.properties]"
+      on-profile: test
   application:
     name: vulpes
   datasource:
