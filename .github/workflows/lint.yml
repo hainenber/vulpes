@@ -21,6 +21,9 @@ jobs:
 
       - name: Lint YAML and JSOn files
         uses: GrantBirki/json-yaml-validator@v3.3.0
+        with:
+          # Intentionally invalid JSON file to be used in VulnerabilityInitialIngester test
+          json_exclude_regex: 'src/test/resources/VulnerabilityInitialIngester/unreviewed/12/GHSA-empty-string/GHSA-empty-string\.json'
 
       - name: Lint Terraform files
         run: terraform fmt -recursive -diff .
