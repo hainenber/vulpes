@@ -12,12 +12,23 @@ updates:
       - dependency-name: jakarta.persistence:jakarta.persistence-api # Manually upgrade this to one bundled by hibernate-core
     schedule:
       interval: "daily"
+    groups:
+      all-minor-patch:
+        update-types: ["minor", "patch"]
+
   - package-ecosystem: "terraform" # See documentation for possible values
     directories: 
       - "/infrastructure/**/*" # Location of package manifests
     schedule:
       interval: "daily"
+    groups:
+      all-minor-patch:
+        update-types: ["minor", "patch"]
+
   - package-ecosystem: "npm"
     directory: "/web-ui" # Location of package manifests
     schedule:
       interval: "daily"
+    groups:
+      all-minor-patch:
+        update-types: ["minor", "patch"]
