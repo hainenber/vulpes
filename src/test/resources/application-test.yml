@@ -1,0 +1,37 @@
+logging:
+  level:
+    org.springframework.boot.context.config: DEBUG
+
+spring:
+  config:
+    activate:
+      on-profile: test
+  application:
+    name: vulpes
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vulpes_db
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: create
+  sql:
+    init:
+      mode: always
+  # Enable graceful shutdown
+  lifecycle:
+    timeout-per-shutdown-phase: "10s"
+
+vulpes:
+  github:
+    advisory-database:
+      fetch-interval: 5m
+      path: "/tmp/advisory-database"
+  opensearch:
+    url: https://localhost:9200
+    index: "github-security-advisory-database"
+  web-ui:
+    url: http://localhost:5173
+  load-data-from-scratch:
+    opensearch: false
+    postgresql: false
