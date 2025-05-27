@@ -38,7 +38,7 @@ dependencies {
 	implementation('org.eclipse.jgit:org.eclipse.jgit:7.2.1.202505142326-r')
 
 	// To load CVEs into OpenSearch server.
-	implementation('org.opensearch.client:opensearch-java:2.24.0')
+	implementation('org.opensearch.client:opensearch-java:3.0.0')
 	implementation('org.apache.httpcomponents.client5:httpclient5:5.5')
 	implementation('org.apache.httpcomponents.core5:httpcore5-h2:5.3.4')
 
