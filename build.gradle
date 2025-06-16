@@ -22,8 +22,8 @@ dependencies {
 	// **** Application ****
 	// Baseline Spring Boot.
 	implementation('org.springframework.boot:spring-boot-starter:3.5.0')
-	implementation('com.fasterxml.jackson.core:jackson-annotations:2.19.0')
-	implementation('com.fasterxml.jackson.core:jackson-databind:2.19.0')
+	implementation('com.fasterxml.jackson.core:jackson-annotations:2.19.1')
+	implementation('com.fasterxml.jackson.core:jackson-databind:2.19.1')
 	// Ensure Jakarta Persistence package version to be the same with bundled of spring-boot-starter-data-jpa
 	implementation('jakarta.persistence:jakarta.persistence-api:3.1.0')
 
